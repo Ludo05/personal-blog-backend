@@ -1,0 +1,6 @@
+{
+  "mongoDb": {
+    "connectionString": "mongodb+srv://admin:admin@cluster0.xpwrw.mongodb.net/blog?retryWrites=true&w=majority"
+  }
+}
+

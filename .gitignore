@@ -1,0 +1,15 @@
+.idea
+node_modules
+yarn-error.log
+public
+.DS_Store
+dump.rdb
+build
+test/coverage
+functional-output
+.env
+output
+_output
+
+#docker volume
+exampleData
