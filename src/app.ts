@@ -1,18 +1,19 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { BlogController } from "./controllers/main";
+import { BlogController, EmailController } from "./controllers";
 import mongoose from "mongoose";
 import { MONGODB_CONNECTION_STRING } from "./constants/config";
 
 class App {
   public app: Application;
   public blogController: BlogController;
-
+  public emailController: EmailController;
   constructor() {
     this.app = express();
     this.setConfig();
     App.setMongoConfig();
+    this.emailController = new EmailController(this.app);
     this.blogController = new BlogController(this.app);
   }
 

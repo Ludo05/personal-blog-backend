@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { DELETE_SUCCESSFUL_MESSAGE, RESOURCE_NOT_FOUND_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import { MongooseDocument } from "mongoose";
 import { BlogModel } from "../models/example";
+import { blogValidation } from "../validation";
 
 export class BlogService {
   public welcomeMessage(req: Request, res: Response) {
@@ -18,7 +19,11 @@ export class BlogService {
   }
 
   public addNewExampleItem(req: Request, res: Response) {
-    const newExampleItem = new BlogModel(req.body);
+    const { error, value } = blogValidation.validate(req.body)
+    if(error) {
+      return res.status(400).send(error)
+    }
+    const newExampleItem = new BlogModel(value);
     newExampleItem.save((error: Error, exampleItem: MongooseDocument) => {
       if (error) {
         return res.send(error);

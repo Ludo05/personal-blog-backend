@@ -47,12 +47,12 @@ _This will start the app on port 9001 but can be configure from `/src/constants/
 │   │   ├── messages.ts
 │   │   └── paths.ts
 │   ├── controllers
-│   │   └── main.ts
+│   │   └── BlogController.ts
 │   ├── models
 │   │   └── example.ts
 │   ├── server.ts
 │   └── services
-│       └── example-service.ts
+│       └── BlogService.ts
 ├── tsconfig.json
 └── yarn.lock
 

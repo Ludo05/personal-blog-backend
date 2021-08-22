@@ -3,6 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("config"));
-exports.PORT = 9002;
-exports.MONGODB_CONNECTION_STRING = config_1.default.get('mongoDb.connectionString');
+const debug_1 = __importDefault(require("debug"));
+const myDebug = (namespace) => debug_1.default(namespace);
+exports.myDebug = myDebug;

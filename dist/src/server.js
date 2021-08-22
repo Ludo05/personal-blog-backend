@@ -3,6 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("config"));
-exports.PORT = 9002;
-exports.MONGODB_CONNECTION_STRING = config_1.default.get('mongoDb.connectionString');
+const app_1 = __importDefault(require("./app"));
+const config_1 = require("./constants/config");
+app_1.default.listen(config_1.PORT, () => console.log(`Listening on port ${config_1.PORT}`));
