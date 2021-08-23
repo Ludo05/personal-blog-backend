@@ -49,7 +49,7 @@ _This will start the app on port 9001 but can be configure from `/src/constants/
 │   ├── controllers
 │   │   └── BlogController.ts
 │   ├── models
-│   │   └── example.ts
+│   │   └── BlogSchema.ts
 │   ├── server.ts
 │   └── services
 │       └── BlogService.ts

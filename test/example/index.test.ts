@@ -1,6 +1,5 @@
-import { sinon, expect } from "../../src/util/utils";
+import { sinon, expect } from "../utils/utils";
 import { IBlogSummary } from "../../src/constants/types";
-import { BlogService } from "../../src/services/BlogService";
 import { Request, Response } from 'express';
 
 describe('test method', function () {
@@ -13,7 +12,6 @@ describe('test method', function () {
         sandbox = sinon.createSandbox();
         req = {
             body: {
-                title: 'test',
                 summary: 'summary test'
             } as Partial<IBlogSummary>,
         } as Partial<Request>;
@@ -32,9 +30,7 @@ describe('test method', function () {
     });
 
 
-    it('should do test', function () {
-        const blog: BlogService = new BlogService();
-        blog.addNewExampleItem(req as Request, res as Response)
-        expect(1).to.be.equal(1)
+    it('should validate data', function () {
+       expect(1).to.equal(1)
     });
 });

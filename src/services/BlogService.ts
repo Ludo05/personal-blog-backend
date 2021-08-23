@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { DELETE_SUCCESSFUL_MESSAGE, RESOURCE_NOT_FOUND_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import { MongooseDocument } from "mongoose";
-import { BlogModel } from "../models/example";
+import { BlogModel } from "../models/BlogSchema";
 import { blogValidation } from "../validation";
+
 
 export class BlogService {
   public welcomeMessage(req: Request, res: Response) {

@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const messages_1 = require("../constants/messages");
-const example_1 = require("../models/example");
+const BlogSchema_1 = require("../models/BlogSchema");
 const validation_1 = require("../validation");
 class BlogService {
     welcomeMessage(req, res) {
         return res.status(200).send(messages_1.WELCOME_MESSAGE);
     }
     getAllExampleItems(req, res) {
-        example_1.BlogModel.find({}, (error, exampleItem) => {
+        BlogSchema_1.BlogModel.find({}, (error, exampleItem) => {
             if (error) {
                 return res.send(error);
             }
@@ -20,7 +20,7 @@ class BlogService {
         if (error) {
             return res.status(400).send(error);
         }
-        const newExampleItem = new example_1.BlogModel(value);
+        const newExampleItem = new BlogSchema_1.BlogModel(value);
         newExampleItem.save((error, exampleItem) => {
             if (error) {
                 return res.send(error);
@@ -31,7 +31,7 @@ class BlogService {
     deleteExampleItem(req, res) {
         const exampleItemId = req.params.id;
         //findOneAndDelete({_id: exampleItemId}).
-        example_1.BlogModel.findByIdAndDelete(exampleItemId, (error, deleted) => {
+        BlogSchema_1.BlogModel.findByIdAndDelete(exampleItemId, (error, deleted) => {
             if (error) {
                 res.send(error);
             }
@@ -42,7 +42,7 @@ class BlogService {
     }
     updateExampleItem(req, res) {
         const exampleItemId = req.params.id;
-        example_1.BlogModel.findByIdAndUpdate(exampleItemId, req.body, { new: true }, //Return the updated object
+        BlogSchema_1.BlogModel.findByIdAndUpdate(exampleItemId, req.body, { new: true }, //Return the updated object
         (error, exampleItem) => {
             if (error) {
                 res.send(error);

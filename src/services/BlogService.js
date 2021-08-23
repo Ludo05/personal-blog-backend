@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var messages_1 = require("../constants/messages");
-var example_1 = require("../models/example");
+var example_1 = require("../models/BlogSchema");
 var validation_1 = require("../validation");
 var BlogService = /** @class */ (function () {
     function BlogService() {
