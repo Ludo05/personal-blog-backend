@@ -21,7 +21,10 @@ class App {
   private static setMongoConfig() {
     mongoose.Promise = global.Promise;
     mongoose.connect(MONGODB_CONNECTION_STRING, {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true
     })
         .catch(err => console.log('HELOOOOO' + err));
   }
