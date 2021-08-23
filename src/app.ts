@@ -22,7 +22,8 @@ class App {
     mongoose.Promise = global.Promise;
     mongoose.connect(MONGODB_CONNECTION_STRING, {
       useNewUrlParser: true
-    });
+    })
+        .catch(err => console.log('HELOOOOO' + err));
   }
 
   private setConfig() {

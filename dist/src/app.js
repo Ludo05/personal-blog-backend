@@ -22,7 +22,8 @@ class App {
         mongoose_1.default.Promise = global.Promise;
         mongoose_1.default.connect(config_1.MONGODB_CONNECTION_STRING, {
             useNewUrlParser: true
-        });
+        })
+            .catch(err => console.log('HELOOOOO' + err));
     }
     setConfig() {
         //Allows receiving requests with data in json format
