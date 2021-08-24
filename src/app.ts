@@ -26,7 +26,7 @@ class App {
       useFindAndModify: false,
       useCreateIndex: true
     })
-        .catch(err => console.log('HELOOOOO' + err));
+        .catch(err => console.log(err));
   }
 
   private setConfig() {
