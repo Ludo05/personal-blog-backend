@@ -4,6 +4,9 @@ import cors from 'cors';
 import { BlogController, EmailController } from "./controllers";
 import mongoose from "mongoose";
 import { MONGODB_CONNECTION_STRING } from "./constants/config";
+require('dotenv').config();
+
+
 
 class App {
   public app: Application;

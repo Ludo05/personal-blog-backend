@@ -10,7 +10,7 @@ export class EmailService {
       port: 465,
       auth: {
         user: 'lewisawilliams1501@gmail.com',
-        pass: 'Dragonballz!23'
+        pass: process.env.PASSWORD
       },
       secure: true,
       tls: {
@@ -24,14 +24,14 @@ export class EmailService {
       from: 'lewisawilliams1501@gmail.com',
       to: req.body.to,
       subject: 'Thanks for reaching out',
-      text: req.body.text
+      text: req.body.name + req.body.text
     };
     EmailService.transport().sendMail(mailOptions, (err) => {
       if (err) {
         console.log(err)
         return res.status(500).send({ msg: err.message });
       } else {
-        return res.status(200).redirect('/');
+        return res.status(200).send({ msg: 'email sent.'});
       }
     });
   }
@@ -51,7 +51,7 @@ export class EmailService {
 
       }]
     };
-    EmailService.transport().sendMail(mailOptions, (err) => {
+    EmailService.transport().sendMail(mailOptions, (err): Response => {
       if (err) {
         return res.status(500).send({ message: err.stack });
       } else {
