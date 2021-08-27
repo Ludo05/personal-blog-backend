@@ -3,7 +3,7 @@ export const PATHS = {
   ALL: '/all',
   ITEM: '/item',
   ITEM_BY_ID: '/item/:id',
-  EMAIL_WITH_ATTACHMENT: 'email-with-attachment',
-  EMAIL: 'email'
+  EMAIL_WITH_ATTACHMENT: '/email-with-attachment',
+  EMAIL: '/email'
 };
 

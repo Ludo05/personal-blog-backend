@@ -6,30 +6,27 @@ import { EmailTemplateCreator } from '../util/EmailTemplateCreator';
 export class EmailService {
   private static transport(): Mail {
     return createTransport({
-      // @ts-ignore
-      host: 'lewiswilliams1501@gmail.com',
-      port: 465,
-      secure: true,
-      auth: false,
-      from: 'kontakt@dietaszczescia.pl',
-      tls: {
-        rejectUnauthorized: false
+      service: 'gmail',
+      auth: {
+        user: 'lewisawilliams1501@gmail.com',
+        pass: 'Dragonballz!23'
       }
     });
   }
 
   public async sendEmail(req: Request, res: Response) {
     const mailOptions = {
-      from: 'nkontakt@dietaszczescia.pl',
-      to: req.body.email,
-      subject: 'Account Verification Token',
-      text: 'Hello,\n\n' + 'Thanks for reaching out to me'
+      from: req.body.from,
+      to: req.body.to,
+      subject: 'Thanks for reaching out',
+      text: req.body.text
     };
     EmailService.transport().sendMail(mailOptions, (err) => {
       if (err) {
+        console.log(err)
         return res.status(500).send({ msg: err.message });
       } else {
-        return res.status(200).send('A verification email has been sent to');
+        return res.status(200).redirect('/');
       }
     });
   }
@@ -56,9 +53,5 @@ export class EmailService {
         return res.status(204).send();
       }
     });
-
-    // transporter.sendMail(mailOptions, function(error, cb) {
-    // });
   }
-
 }
