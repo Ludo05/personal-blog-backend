@@ -10,7 +10,7 @@ export class EmailService {
       port: 465,
       auth: {
         user: 'lewisawilliams1501@gmail.com',
-        pass: process.env.PASSWORD
+        pass: 'Dragonballz!23'
       },
       secure: true,
       tls: {
