@@ -10,6 +10,10 @@ export class EmailService {
       auth: {
         user: 'lewisawilliams1501@gmail.com',
         pass: 'Dragonballz!23'
+      },
+      secure: true,
+      tls: {
+        rejectUnauthorized: false
       }
     });
   }
