@@ -16,7 +16,7 @@ export class EmailService {
 
   public async sendEmail(req: Request, res: Response) {
     const mailOptions = {
-      from: req.body.from,
+      from: 'lewiswilliams1501@gmail.com',
       to: req.body.to,
       subject: 'Thanks for reaching out',
       text: req.body.text
