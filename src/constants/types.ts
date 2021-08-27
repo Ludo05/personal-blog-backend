@@ -4,6 +4,11 @@ interface IBlogSummary {
     summary: string,
 }
 
+type PORT_NUMBER = string | number;
+
+
+
 export {
-    IBlogSummary
+    IBlogSummary,
+    PORT_NUMBER
 }
