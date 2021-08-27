@@ -6,7 +6,8 @@ import { EmailTemplateCreator } from '../util/EmailTemplateCreator';
 export class EmailService {
   private static transport(): Mail {
     return createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
       auth: {
         user: 'lewisawilliams1501@gmail.com',
         pass: 'Dragonballz!23'
