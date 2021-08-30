@@ -9,8 +9,8 @@ export class EmailService {
       host: 'smtp.gmail.com',
       port: 465,
       auth: {
-        user: 'lewisawilliams1501@gmail.com',
-        pass: 'Dragonballz!23'
+        user: 'USER',
+        pass: 'PASSWORD'
       },
       secure: true,
       tls: {
@@ -21,7 +21,7 @@ export class EmailService {
 
   public async sendEmail(req: Request, res: Response) {
     const mailOptions = {
-      from: 'lewisawilliams1501@gmail.com',
+      from: 'EMAIL',
       to: req.body.to,
       subject: 'Thanks for reaching out',
       text: req.body.name + req.body.text
@@ -39,7 +39,7 @@ export class EmailService {
   public async emailWithAttachment(req: Request, res: Response) {
     const { htmlToSend, email } = EmailTemplateCreator.createTemplate(req);
     const mailOptions = {
-      from: 'kontakt@dietaszczescia.pl',
+      from: 'EMAIL',
       to: req.body.customerEmail,
       subject: 'Diet Plan',
       text: 'Here',
