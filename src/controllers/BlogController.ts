@@ -22,7 +22,7 @@ export class BlogController {
       .post(this.blogService.addNewExampleItem);
 
     this.app.route(PATHS.TEST)
-        .get(this.blogService.getAllExampleItems);
+        .get(this.blogService.getExampleItemById);
 
 
     this.app.route(PATHS.ITEM_BY_ID)
