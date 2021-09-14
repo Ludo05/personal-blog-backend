@@ -57,6 +57,8 @@ export class BlogService {
       (error: Error, exampleItem: any) => {
         if (error) {
           res.send(error);
+        } else {
+
         }
 
         return exampleItem
@@ -71,13 +73,9 @@ export class BlogService {
     const exampleItemId: string = req.params.id;
     BlogModel.findById(exampleItemId, (error: Error, ItemById: any) => {
       if (error) {
-        res.send(error);
+        return  res.send(error);
       }
-
-
-      return ItemById
-          ? res.status(200).json(ItemById)
-          : res.status(404).send(RESOURCE_NOT_FOUND_MESSAGE);
+      return res.status(200).json(ItemById)
     });
   }
 
