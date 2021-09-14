@@ -11,6 +11,9 @@ export class BlogController {
   }
 
   public routes() {
+    this.app.route(PATHS.INDEX)
+        .get(this.blogService.welcomeMessage);
+
     this.app.route(PATHS.ALL)
         .get(this.blogService.getAllExampleItems);
 

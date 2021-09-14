@@ -75,5 +75,8 @@ export class BlogService {
     }
 
 
+    public welcomeMessage(req: Request, res: Response) {
+      return res.json(WELCOME_MESSAGE)
+    }
 
 }
