@@ -25,8 +25,11 @@ export class BlogController {
 
     this.app.route(PATHS.ITEM_BY_ID)
       .delete(this.blogService.deleteExampleItem)
-      .put(this.blogService.updateExampleItem)
-      .get(this.blogService.getExampleItemById);
+      .put(this.blogService.updateExampleItem);
+
+
+    this.app.route(PATHS.ITEMS_BY_ID)
+        .get(this.blogService.getExampleItemById);
 
   }
 }
