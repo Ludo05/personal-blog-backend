@@ -70,7 +70,7 @@ export class BlogService {
   public getExampleItemById(req: Request, res: Response) {
     const exampleItemId = req.params.id;
     //findOneAndDelete({_id: exampleItemId}).
-    BlogModel.find({_id: exampleItemId}, (error: Error, ItemById: any) => {
+    BlogModel.findById(exampleItemId, (error: Error, ItemById: any) => {
       if (error) {
         res.send(error);
       }

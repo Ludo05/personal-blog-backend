@@ -21,13 +21,12 @@ export class BlogController {
     this.app.route(PATHS.ITEM)
       .post(this.blogService.addNewExampleItem);
 
-    this.app.route(PATHS.TEST)
-        .get(this.blogService.getExampleItemById);
 
 
     this.app.route(PATHS.ITEM_BY_ID)
       .delete(this.blogService.deleteExampleItem)
-      .put(this.blogService.updateExampleItem);
+      .put(this.blogService.updateExampleItem)
+      .get(this.blogService.getExampleItemById);
 
   }
 }
