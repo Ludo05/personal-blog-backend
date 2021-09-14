@@ -11,9 +11,6 @@ export class BlogController {
   }
 
   public routes() {
-    this.app.route(PATHS.INDEX)
-      .get(this.blogService.welcomeMessage);
-
     this.app.route(PATHS.ALL)
         .get(this.blogService.getAllExampleItems);
 
@@ -24,12 +21,9 @@ export class BlogController {
 
 
     this.app.route(PATHS.ITEM_BY_ID)
+      .get(this.blogService.getBlogById)
       .delete(this.blogService.deleteExampleItem)
       .put(this.blogService.updateExampleItem);
-
-
-    this.app.route(PATHS.ITEMS_BY_ID)
-        .get(this.blogService.getExampleItemById);
 
   }
 }

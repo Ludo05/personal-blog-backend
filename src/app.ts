@@ -12,6 +12,7 @@ class App {
   public app: Application;
   public blogController: BlogController;
   public emailController: EmailController;
+  public blogTwoController: BlogTwoController;
   constructor() {
     this.app = express();
     this.setConfig();
