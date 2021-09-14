@@ -20,9 +20,9 @@ export class BlogController {
 
     this.app.route(PATHS.ITEM)
       .post(this.blogService.addNewExampleItem);
-    //
-    // this.app.route(PATHS.ITEM_BY_ID)
-    //     .get(this.blogService.getExampleItemById);
+
+    this.app.route(PATHS.TEST)
+        .get(this.blogService.getAllExampleItems);
 
 
     this.app.route(PATHS.ITEM_BY_ID)
