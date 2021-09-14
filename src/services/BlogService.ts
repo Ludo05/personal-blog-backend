@@ -68,8 +68,8 @@ export class BlogService {
 
 
   public getExampleItemById(req: Request, res: Response) {
-    const exampleItemId = req.params.id;
-    BlogModel.find({}, (error: Error, ItemById: any) => {
+    const exampleItemId: string = req.params.id;
+    BlogModel.findById(exampleItemId, (error: Error, ItemById: any) => {
       if (error) {
         res.send(error);
       }
