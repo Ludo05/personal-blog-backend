@@ -41,6 +41,7 @@ export class BlogService {
         res.send(error);
       }
 
+
       return deleted
         ? res.status(204).send(DELETE_SUCCESSFUL_MESSAGE)
         : res.status(404).send(RESOURCE_NOT_FOUND_MESSAGE);
@@ -64,4 +65,21 @@ export class BlogService {
       }
     );
   }
+
+
+  public getExampleItemById(req: Request, res: Response) {
+    const exampleItemId = req.params.id;
+    //findOneAndDelete({_id: exampleItemId}).
+    BlogModel.findById(exampleItemId, (error: Error, ItemById: any) => {
+      if (error) {
+        res.send(error);
+      }
+
+
+      return ItemById
+          ? res.status(200).json(ItemById)
+          : res.status(404).send(RESOURCE_NOT_FOUND_MESSAGE);
+    });
+  }
+
 }

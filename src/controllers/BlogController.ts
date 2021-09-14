@@ -15,14 +15,16 @@ export class BlogController {
       .get(this.blogService.welcomeMessage);
 
     this.app.route(PATHS.ALL)
-      .get(this.blogService.getAllExampleItems);
+        .get(this.blogService.getAllExampleItems);
+
 
     this.app.route(PATHS.ITEM)
       .post(this.blogService.addNewExampleItem);
 
     this.app.route(PATHS.ITEM_BY_ID)
       .delete(this.blogService.deleteExampleItem)
-      .put(this.blogService.updateExampleItem);
+      .put(this.blogService.updateExampleItem)
+      .get(this.blogService.getExampleItsrc/services/EmailService.tsemById);
 
   }
 }

@@ -12,7 +12,7 @@ export class EmailService {
         user: 'lewisawilliams1501@gmail.com',
         pass: 'Dragonballz!23'
       },
-      secure: true,
+      secure: false,
       tls: {
         rejectUnauthorized: false
       }
