@@ -17,7 +17,7 @@ export class BlogService {
     }
 
     public testAuth(req: Request, res: Response) {
-            return res.json('Welcome to auth!');
+            return res.json(`Welcome to auth ${req.user}!`);
     }
 
     public getAllExampleItems(req: Request, res: Response) {
