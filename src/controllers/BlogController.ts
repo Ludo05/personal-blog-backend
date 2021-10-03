@@ -29,7 +29,6 @@ export class BlogController {
       .put(this.blogService.updateExampleItem);
 
 
-
     this.app.route(PATHS.AUTH)
         .get(AuthService.checkAuthorization, this.blogService.testAuth);
 
