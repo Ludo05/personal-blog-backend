@@ -16,6 +16,12 @@ export class BlogService {
         });
     }
 
+
+    public testAuth(req: Request, res: Response) {
+            return res.json('Welcome to auth!');
+    }
+
+
     public getAllExampleItems(req: Request, res: Response) {
         BlogModel.find({}, (error: Error, exampleItem: MongooseDocument) => {
             if (error) {
