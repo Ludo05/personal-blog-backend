@@ -28,7 +28,20 @@ const userValidation: ObjectSchema = joi.object().keys({
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 });
 
+
+const loginValidation: ObjectSchema = joi.object().keys({
+    username: joi.string()
+        .alphanum()
+        .min(3)
+        .max(30)
+        .required(),
+
+    password: joi.string()
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+});
+
 export {
     blogValidation,
-    userValidation
+    userValidation,
+    loginValidation
 }

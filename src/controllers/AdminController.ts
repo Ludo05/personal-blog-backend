@@ -13,6 +13,8 @@ export class AdminController {
 
     private routes() {
         this.app.route(PATHS.SIGNUP)
-            .post(this.adminService.SignIn)
+            .post(this.adminService.register)
+        this.app.route(PATHS.LOGIN)
+            .post(this.adminService.login)
     }
 }

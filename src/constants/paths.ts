@@ -1,7 +1,7 @@
 export const PATHS = {
   INDEX: '/',
   LOGIN: '/login',
-  SIGNUP: '/sign-up',
+  SIGNUP: '/register',
   UPLOAD_IMAGE: '/upload',
   ALL: '/all',
   ITEM: '/item',
