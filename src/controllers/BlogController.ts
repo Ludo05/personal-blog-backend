@@ -1,6 +1,7 @@
 import { Application } from 'express';
 import { BlogService } from "../services/BlogService";
 import { PATHS } from "../constants/paths";
+import {AuthService} from "../middleware";
 
 export class BlogController {
   private blogService: BlogService;
@@ -26,6 +27,11 @@ export class BlogController {
       .get(this.blogService.getBlogById)
       .delete(this.blogService.deleteExampleItem)
       .put(this.blogService.updateExampleItem);
+
+
+
+    this.app.route(PATHS.AUTH)
+        .get(AuthService.checkAuthorization, this.blogService.testAuth);
 
   }
 }
