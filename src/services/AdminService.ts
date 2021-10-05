@@ -1,12 +1,10 @@
-import {NextFunction, Request, Response} from "express";
-import { MongooseDocument } from "mongoose";
-import { SchemaModel } from "../models/UserSchema";
+import {Request, Response} from "express";
+import {MongooseDocument} from "mongoose";
+import {SchemaModel} from "../models/UserSchema";
 import {loginValidation, userValidation} from "../validation";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-
-
-const jwtExpirySeconds: number = 90000000;
+import { array } from '../util/RefreshTokenHolder'
 
 export class AdminService {
     public async register(req: Request, res: Response) {
@@ -15,7 +13,7 @@ export class AdminService {
             return res.status(400).send(error)
         }
 
-        const newUser = new SchemaModel(req.body)
+        const newUser = new SchemaModel(value)
         newUser.save((error: Error, mongoUser: MongooseDocument) => {
             if (error) {
                 return res.status(400).send(error)
@@ -32,23 +30,63 @@ export class AdminService {
         const user = await SchemaModel.findOne({username: value.username}).exec();
 
         const decodedPassword = await bcrypt.compare(req.body.password, user.password)
-        console.log(decodedPassword)
         if (!decodedPassword) {
             // Should return a error saying the username and password doesnt match.
             return res.status(300).send({msg: 'User creds are incorrect please try again.'});
         }
-        const token: string = jwt.sign({username: value.username},'testprivatekey', {
-            expiresIn: 300 * jwtExpirySeconds
-        });
 
-        res.cookie('token', token, {maxAge: (jwtExpirySeconds * 600000) * 600});
+        const access_token: string = AdminService.generateAccessToken(user)
+
+        const refresh_token: string = AdminService.generateRefreshToken(user)
+        array.push(refresh_token)
+
         return res.json({
-            token,
-            user: {
-                username: user.username,
-                lastName: user.lastName,
-                email: user.email
-            }
+            access_token,
+            refresh_token,
+            username: user.username,
+            email: user.email
         });
+    }
+
+    public async logout(req: Request, res: Response) {
+       const token = req.body.token;
+        array.filter(tokens => tokens !== token)
+        return res.status(200).json('You have been logged out')
+    }
+
+    public refreshToken(req: Request, res: Response) {
+        const { token } = req.body;
+
+        if (!token) {
+            return res.status(401).json('You need a token for refresh')
+        }
+        if(!array.includes(token)){
+            return res.status(403).json("Refresh token is not valid")
+        }
+
+        jwt.verify(token, "testRefreshPrivatekey", (err: any, user: any) => {
+            err && console.log(err)
+            array.filter(tokens => tokens !== token);
+
+            const access_token: string = AdminService.generateAccessToken(user)
+            const refresh_token: string = AdminService.generateRefreshToken(user)
+
+            array.push(refresh_token)
+
+            res.status(200).json({
+                access_token: access_token,
+                refresh_token: refresh_token
+            })
+        })
+    }
+
+    private static generateAccessToken(user: any) {
+        return jwt.sign({username: user.username, email: user.email,}, 'testprivatekey', {
+            expiresIn: '15s'
+        })
+    }
+
+    private static generateRefreshToken(user: any) {
+        return jwt.sign({username: user.username, email: user.email}, 'testRefreshPrivatekey')
     }
 }

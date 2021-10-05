@@ -2,6 +2,14 @@
   "watch": [
     "src"
   ],
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/", "dist/", "coverage/"],
   "ext": "ts",
-  "exec": "ts-node ./src/server.ts"
+  "exec": "ts-node ./src/server.ts",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "execMap": {
+    "ts": "node -r ts-node/register"
+  }
 }

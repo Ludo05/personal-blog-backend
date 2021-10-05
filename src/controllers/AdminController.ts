@@ -1,6 +1,7 @@
 import {Application} from "express";
 import {AdminService} from "../services/AdminService";
 import {PATHS} from "../constants/paths";
+import {AuthService} from "../middleware";
 
 export class AdminController {
     private adminService: AdminService
@@ -16,5 +17,9 @@ export class AdminController {
             .post(this.adminService.register)
         this.app.route(PATHS.LOGIN)
             .post(this.adminService.login)
+        this.app.route(PATHS.LOGOUT)
+            .post(AuthService.checkAuthorization, this.adminService.logout)
+        this.app.route(PATHS.VERIFY)
+            .post(this.adminService.refreshToken)
     }
 }

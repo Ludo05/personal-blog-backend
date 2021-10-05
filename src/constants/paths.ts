@@ -6,6 +6,8 @@ export const PATHS = {
   ALL: '/all',
   ITEM: '/item',
   AUTH: '/auth',
+  VERIFY: '/refresh',
+  LOGOUT: '/logout',
   ITEM_BY_ID: '/item/:id',
   EMAIL_WITH_ATTACHMENT: '/email-with-attachment',
   EMAIL: '/email'
