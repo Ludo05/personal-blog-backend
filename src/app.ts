@@ -1,9 +1,10 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import redis, {RedisClient} from 'redis';
 import { BlogController, EmailController, AdminController } from "./controllers";
 import mongoose from "mongoose";
-import { MONGODB_CONNECTION_STRING } from "./constants/config";
+import {MONGODB_CONNECTION_STRING, REDIS_PORT} from "./constants/config";
 require('dotenv').config();
 
 
@@ -13,6 +14,7 @@ class App {
   public blogController: BlogController;
   public emailController: EmailController;
   public adminController: AdminController;
+  public client: RedisClient
 
   constructor() {
     this.app = express();
@@ -21,6 +23,25 @@ class App {
     this.emailController = new EmailController(this.app);
     this.blogController = new BlogController(this.app);
     this.adminController = new AdminController(this.app);
+    if(process.env.NODE_ENV === 'development') {
+      console.log('dev')
+      this.client = redis.createClient({
+        port: 6379,
+        host: '127.0.0.1'
+      });
+    } else {
+      this.client = redis.createClient({
+        port: 6379,
+        host: '127.0.0.1'
+      });
+    }
+
+    this.client.on("error", (err) => {
+      console.log(err);
+    });
+
+
+
   }
 
   //Connecting to our MongoDB database
@@ -29,7 +50,7 @@ class App {
     mongoose.connect(MONGODB_CONNECTION_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
+      useFindAndModify: true,
       useCreateIndex: true
     })
         .catch(err => console.log(err));
@@ -48,4 +69,9 @@ class App {
   }
 }
 
-export default new App().app;
+export default App;
+
+
+
+
+

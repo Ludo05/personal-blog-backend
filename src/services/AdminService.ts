@@ -5,6 +5,8 @@ import {loginValidation, userValidation} from "../validation";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { array } from '../util/RefreshTokenHolder'
+import { client } from "../helpers/RedisClient";
+import redis from "redis";
 
 export class AdminService {
     public async register(req: Request, res: Response) {
@@ -27,8 +29,9 @@ export class AdminService {
         if (error) {
             return res.status(422).send(error)
         }
+        client.set("key", "valudddde", redis.print);
+        client.get("key", redis.print);
         const user = await SchemaModel.findOne({username: value.username}).exec();
-
         const decodedPassword = await bcrypt.compare(req.body.password, user.password)
         if (!decodedPassword) {
             // Should return a error saying the username and password doesnt match.
@@ -50,6 +53,7 @@ export class AdminService {
 
     public async logout(req: Request, res: Response) {
        const token = req.body.token;
+        client.get("key", redis.print);
         array.filter(tokens => tokens !== token)
         return res.status(200).json('You have been logged out')
     }
@@ -82,7 +86,7 @@ export class AdminService {
 
     private static generateAccessToken(user: any) {
         return jwt.sign({username: user.username, email: user.email,}, 'testprivatekey', {
-            expiresIn: '15s'
+            expiresIn: '15m'
         })
     }
 

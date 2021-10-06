@@ -3,6 +3,8 @@ import { DELETE_SUCCESSFUL_MESSAGE, RESOURCE_NOT_FOUND_MESSAGE, WELCOME_MESSAGE 
 import { MongooseDocument } from "mongoose";
 import { BlogModel } from "../models/BlogSchema";
 import { blogValidation } from "../validation";
+import { client } from "../helpers/RedisClient";
+import redis from "redis";
 
 
 export class BlogService {
@@ -17,10 +19,12 @@ export class BlogService {
     }
 
     public testAuth(req: Request, res: Response) {
-            return res.json(`Welcome to auth ${req.user}!`);
+            // @ts-ignore
+        return res.json(`Welcome to auth ${req.user.username}!`);
     }
 
     public getAllExampleItems(req: Request, res: Response) {
+        client.get("key", redis.print);
         BlogModel.find({}, (error: Error, exampleItem: MongooseDocument) => {
             if (error) {
                 return res.send(error);
