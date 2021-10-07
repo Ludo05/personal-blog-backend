@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { DELETE_SUCCESSFUL_MESSAGE, RESOURCE_NOT_FOUND_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
-import { MongooseDocument } from "mongoose";
 import { BlogModel } from "../models/BlogSchema";
 import { blogValidation } from "../validation";
 import { client } from "../helpers/RedisClient";
@@ -25,7 +24,7 @@ export class BlogService {
 
     public getAllExampleItems(req: Request, res: Response) {
         client.get("key", redis.print);
-        BlogModel.find({}, (error: Error, exampleItem: MongooseDocument) => {
+        BlogModel.find({}, (error: Error, exampleItem: any) => {
             if (error) {
                 return res.send(error);
             }
@@ -39,7 +38,7 @@ export class BlogService {
             return res.status(400).send(error)
         }
         const newExampleItem = new BlogModel(value);
-        newExampleItem.save((error: Error, exampleItem: MongooseDocument) => {
+        newExampleItem.save((error: Error, exampleItem: any) => {
             if (error) {
                 return res.send(error);
             }
@@ -50,7 +49,7 @@ export class BlogService {
     public deleteExampleItem(req: Request, res: Response) {
         const exampleItemId = req.params.id;
         //findOneAndDelete({_id: exampleItemId}).
-        BlogModel.findByIdAndDelete(exampleItemId, (error: Error, deleted: any) => {
+        BlogModel.findByIdAndDelete(exampleItemId, null,(error: any, deleted: any) => {
             if (error) {
                 res.send(error);
             }
@@ -68,7 +67,7 @@ export class BlogService {
             exampleItemId,
             req.body,
             { new: true }, //Return the updated object
-            (error: Error, exampleItem: any) => {
+            (error: any, exampleItem: any) => {
                 if (error) {
                     res.send(error);
                 } else {

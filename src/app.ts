@@ -50,7 +50,7 @@ class App {
     mongoose.connect(MONGODB_CONNECTION_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: true,
+      useFindAndModify: false,
       useCreateIndex: true
     })
         .catch(err => console.log(err));

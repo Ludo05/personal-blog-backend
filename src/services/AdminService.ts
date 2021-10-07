@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-import {MongooseDocument} from "mongoose";
 import {SchemaModel} from "../models/UserSchema";
 import {loginValidation, userValidation} from "../validation";
 import jwt from 'jsonwebtoken';
@@ -16,7 +15,7 @@ export class AdminService {
         }
 
         const newUser = new SchemaModel(value)
-        newUser.save((error: Error, mongoUser: MongooseDocument) => {
+        newUser.save((error: Error, mongoUser: any) => {
             if (error) {
                 return res.status(400).send(error)
             }
