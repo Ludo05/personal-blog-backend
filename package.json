@@ -9,6 +9,7 @@
     "test": "jest",
     "build": "tsc -p .",
     "dev": "nodemon src/server.ts",
+    "docker-dev": "node /home/backend/dist/server.js",
     "dev:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts"
   },
   "dependencies": {
