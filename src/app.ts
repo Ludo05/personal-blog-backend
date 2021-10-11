@@ -1,20 +1,34 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import redis, {RedisClient} from 'redis';
 import { BlogController, EmailController, AdminController } from "./controllers";
 import mongoose from "mongoose";
-import {MONGODB_CONNECTION_STRING, REDIS_PORT} from "./constants/config";
-require('dotenv').config();
+import dotenv from 'dotenv';
+import session from 'express-session'
+const redis = require("async-redis");
+let RedisStore = require('connect-redis')(session)
 
+import {MONGODB_CONNECTION_STRING} from "./constants/config";
 
+const result = dotenv.config();
+if (result.error) {
+  dotenv.config({ path: '.env' });
+}
+
+export const redisStore = redis.createClient({
+  host: process.env.REDIS_URL || "redis",
+  port: 6379
+})
+
+redisStore.on('connect', function() {
+  console.log('Redis stored connected Connected!');
+});
 
 class App {
   public app: Application;
   public blogController: BlogController;
   public emailController: EmailController;
   public adminController: AdminController;
-  public client: RedisClient
 
   constructor() {
     this.app = express();
@@ -24,25 +38,14 @@ class App {
     this.blogController = new BlogController(this.app);
     this.adminController = new AdminController(this.app);
     if(process.env.NODE_ENV === 'development') {
-      console.log('dev')
-      this.client = redis.createClient({
-        port: 6379,
-        host: '127.0.0.1'
-      });
-    } else {
-      this.client = redis.createClient({
-        port: 6379,
-        host: '127.0.0.1'
-      });
+      console.log(process.env.NODE_ENV)
+      console.log(process.env.NODE_ENV)
+      console.log(process.env.NODE_ENV)
+      console.log(process.env.NODE_ENV)
     }
-
-    this.client.on("error", (err) => {
-      console.log(err);
-    });
-
-
-
   }
+
+
 
   //Connecting to our MongoDB database
   private static setMongoConfig() {
@@ -57,6 +60,16 @@ class App {
   }
 
   private setConfig() {
+    // @ts-ignore
+    this.app.use(session({
+      store: new RedisStore({client: redisStore}),
+      secret: 'supersecret',
+      cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 30000
+      }
+    }))
     //Allows receiving requests with data in json format
     this.app.use(bodyParser.json({ limit: '10mb' }));
 

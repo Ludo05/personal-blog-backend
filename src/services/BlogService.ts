@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import { DELETE_SUCCESSFUL_MESSAGE, RESOURCE_NOT_FOUND_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import { BlogModel } from "../models/BlogSchema";
 import { blogValidation } from "../validation";
-import { client } from "../helpers/RedisClient";
-import redis from "redis";
+import {redisStore} from "../app";
 
 
 export class BlogService {
@@ -23,7 +22,6 @@ export class BlogService {
     }
 
     public getAllExampleItems(req: Request, res: Response) {
-        client.get("key", redis.print);
         BlogModel.find({}, (error: Error, exampleItem: any) => {
             if (error) {
                 return res.send(error);
@@ -82,7 +80,14 @@ export class BlogService {
     }
 
 
-    public welcomeMessage(req: Request, res: Response) {
+    public  async welcomeMessage(req: Request, res: Response) {
+        await redisStore.set('one','tester to see if value was saved')
+        // redisStore.get('one', (err, reply) => {
+        //     console.log(reply)
+        // })
+        let l = await redisStore.get('one')
+        console.log('versioning')
+        console.log(l)
       return res.json(WELCOME_MESSAGE)
     }
 
