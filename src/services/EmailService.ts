@@ -6,22 +6,24 @@ import { EmailTemplateCreator } from '../util/EmailTemplateCreator';
 export class EmailService {
   private static transport(): Mail {
     return createTransport({
-      host: 'smtp.gmail.com',
+      host: 'mail.lucodes.co.uk',
       port: 465,
+      secure: true,
       auth: {
-        user: 'USER',
-        pass: 'PASSWORD'
+        user: 'contact@lucodes.co.uk',
+        pass: process.env.EMAIL_PASSWORD
       },
-      secure: false,
+      from: 'contact@lucodes.co.uk',
       tls: {
-        rejectUnauthorized: false
-      }
+        // do not fail on invalid certs
+        rejectUnauthorized: true,
+      },
     });
   }
 
   public async sendEmail(req: Request, res: Response) {
     const mailOptions = {
-      from: 'EMAIL',
+      from: 'contact@lucodes.co.uk',
       to: req.body.to,
       subject: 'Thanks for reaching out',
       text: req.body.name + req.body.text

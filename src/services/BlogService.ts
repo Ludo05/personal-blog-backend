@@ -80,14 +80,12 @@ export class BlogService {
     }
 
 
-    public  async welcomeMessage(req: Request, res: Response) {
-        await redisStore.set('one','tester to see if value was saved')
-        // redisStore.get('one', (err, reply) => {
-        //     console.log(reply)
-        // })
-        let l = await redisStore.get('one')
-        console.log('versioning')
-        console.log(l)
+    public   welcomeMessage(req: Request, res: Response) {
+         redisStore.set('one','tester to see if value was saved')
+        redisStore.get('one', (err: Error, reply: any) => {
+            console.log(reply)
+        })
+
       return res.json(WELCOME_MESSAGE)
     }
 

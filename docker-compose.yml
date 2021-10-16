@@ -8,6 +8,8 @@ services:
       -  redis
     networks:
       - webnet
+    volumes:
+      - ./mongodbdata:/data/db
     environment:
       REDIS_URL: redis
     container_name: blog

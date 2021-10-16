@@ -5,7 +5,7 @@ import { BlogController, EmailController, AdminController } from "./controllers"
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import session from 'express-session'
-const redis = require("async-redis");
+const redis = require("redis");
 let RedisStore = require('connect-redis')(session)
 
 import {MONGODB_CONNECTION_STRING} from "./constants/config";
@@ -16,7 +16,7 @@ if (result.error) {
 }
 
 export const redisStore = redis.createClient({
-  host: process.env.REDIS_URL || "redis",
+  host: "localhost",
   port: 6379
 })
 
