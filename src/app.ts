@@ -18,7 +18,7 @@ if (result.error) {
 
 if(process.env.NODE_ENV === 'development') {
   redisStore = redis.createClient({
-    host: "redis"
+    host: "localhost"
   })
 } else {
   redisStore = redis.createClient({
@@ -32,6 +32,9 @@ redisStore.on('connect', function() {
   console.log('Redis stored connected Connected!');
 });
 
+redisStore.on('error', (err: any) => {
+  console.log(err)
+})
 class App {
   public app: Application;
   public blogController: BlogController;
@@ -74,15 +77,15 @@ class App {
 
   private setConfig() {
     // @ts-ignore
-    this.app.use(session({
-      store: new RedisStore({client: redisStore}),
-      secret: 'supersecret',
-      cookie: {
-        secure: false,
-        httpOnly: true,
-        maxAge: 30000
-      }
-    }))
+    // this.app.use(session({
+    //   store: new RedisStore({client: redisStore}),
+    //   secret: 'supersecret',
+    //   cookie: {
+    //     secure: false,
+    //     httpOnly: true,
+    //     maxAge: 30000
+    //   }
+    // }))
     //Allows receiving requests with data in json format
     this.app.use(bodyParser.json({ limit: '10mb' }));
 
