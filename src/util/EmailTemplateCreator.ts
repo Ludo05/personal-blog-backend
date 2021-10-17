@@ -18,7 +18,7 @@ class EmailTemplateCreator {
   public static createTemplate(req: Request): any {
     emailDebug('creating template');
 
-    const dietaryEmail = this.pageRenderer('../templates/emails/dietary.html');
+    const dietaryEmail = this.pageRenderer('../templates/emails/email-response.ejs');
     // const emailPdf = this.pageRenderer('../templates/emails/email.ejs');
 
     const replacements = {
