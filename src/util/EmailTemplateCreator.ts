@@ -19,20 +19,14 @@ class EmailTemplateCreator {
     emailDebug('creating template');
 
     const dietaryEmail = this.pageRenderer('../templates/emails/email-response.ejs');
-    // const emailPdf = this.pageRenderer('../templates/emails/email.ejs');
 
     const replacements = {
       username: req.body.name
     };
 
-    // const emailReplacements = {
-    //   username: req.body.name
-    // };
     const htmlToSend = dietaryEmail(replacements);
-    // const email = emailPdf(emailReplacements);
 
     emailDebug(htmlToSend);
-    // emailDebug(email);
     return { htmlToSend };
   }
 
