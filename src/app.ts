@@ -24,10 +24,10 @@ if(process.env.NODE_ENV === 'development') {
   redisStore = redis.createClient({
     host: process.env.REDIS_URL,
     port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD,
-    tls: {
-      rejectUnauthorized: false
-    }
+    password: process.env.REDIS_PASSWORD
+    // tls: {
+    //   rejectUnauthorized: false
+    // }
   })
 }
 
