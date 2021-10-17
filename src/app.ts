@@ -16,7 +16,10 @@ if (result.error) {
 }
 
 export const redisStore = redis.createClient({
-  host: process.env.REDIS_URL ||  "redis"
+  host: process.env.REDIS_URL ||  "redis",
+  tls: {
+    rejectUnauthorized: false
+  }
 })
 
 redisStore.on('connect', function() {
