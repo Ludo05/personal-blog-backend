@@ -83,10 +83,9 @@ export class BlogService {
     public   welcomeMessage(req: Request, res: Response) {
          redisStore.set('one','tester to see if value was saved')
         redisStore.get('one', (err: Error, reply: any) => {
-            console.log(reply)
+             return res.json(reply)
         })
 
-      return res.json(WELCOME_MESSAGE)
     }
 
 }

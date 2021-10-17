@@ -32,9 +32,10 @@ redisStore.on('connect', function() {
   console.log('Redis stored connected Connected!');
 });
 
-// redisStore.on('error', (err: any) => {
-//   console.log(err)
-// })
+redisStore.on('error', (err: any) => {
+  console.log(err)
+})
+
 class App {
   public app: Application;
   public blogController: BlogController;
