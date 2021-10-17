@@ -7,20 +7,28 @@ import dotenv from 'dotenv';
 import session from 'express-session'
 const redis = require("redis");
 let RedisStore = require('connect-redis')(session)
-
 import {MONGODB_CONNECTION_STRING} from "./constants/config";
+import {RedisStore} from "connect-redis";
+
+let redisStore: any
 
 const result = dotenv.config();
 if (result.error) {
   dotenv.config({ path: '.env' });
 }
 
-export const redisStore = redis.createClient({
-  host: process.env.REDIS_URL ||  "redis",
-  tls: {
-    rejectUnauthorized: false
-  }
-})
+if(process.env.NODE_ENV === 'development') {
+  redisStore = redis.createClient({
+    host: "redis"
+  })
+} else {
+  redisStore = redis.createClient({
+    host: process.env.REDIS_URL,
+    port: process.env.REDIS_PORT,
+    password: process.env.REDIS_PASSWORD
+  })
+}
+export { redisStore }
 
 redisStore.on('connect', function() {
   console.log('Redis stored connected Connected!');
