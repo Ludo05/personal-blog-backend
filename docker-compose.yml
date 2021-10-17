@@ -12,6 +12,7 @@ services:
       - ./mongodbdata:/data/db
     environment:
       REDIS_URL: redis
+      NODE_ENV: 'production'
     container_name: blog
   redis:
     image: 'redis'

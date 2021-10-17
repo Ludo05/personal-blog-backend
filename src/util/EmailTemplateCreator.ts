@@ -19,21 +19,21 @@ class EmailTemplateCreator {
     emailDebug('creating template');
 
     const dietaryEmail = this.pageRenderer('../templates/emails/dietary.html');
-    const emailPdf = this.pageRenderer('../templates/emails/email.ejs');
+    // const emailPdf = this.pageRenderer('../templates/emails/email.ejs');
 
     const replacements = {
-      username: req.body.customerEmail
+      username: req.body.name
     };
 
-    const emailReplacements = {
-      username: req.body.customerEmail
-    };
+    // const emailReplacements = {
+    //   username: req.body.name
+    // };
     const htmlToSend = dietaryEmail(replacements);
-    const email = emailPdf(emailReplacements);
+    // const email = emailPdf(emailReplacements);
 
     emailDebug(htmlToSend);
-    emailDebug(email);
-    return { htmlToSend, email };
+    // emailDebug(email);
+    return { htmlToSend };
   }
 
   // WILL ADD MORE TO THIS WHEN CREATING THE TEMPLATES
