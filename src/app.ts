@@ -60,8 +60,6 @@ class App {
     }
   }
 
-
-
   //Connecting to our MongoDB database
   private static setMongoConfig() {
     mongoose.Promise = global.Promise;
