@@ -8,7 +8,6 @@ import session from 'express-session'
 const redis = require("redis");
 let RedisStore = require('connect-redis')(session)
 import {MONGODB_CONNECTION_STRING} from "./constants/config";
-import {RedisStore} from "connect-redis";
 
 let redisStore: any
 
@@ -28,7 +27,6 @@ if(process.env.NODE_ENV === 'development') {
     password: process.env.REDIS_PASSWORD
   })
 }
-export { redisStore }
 
 redisStore.on('connect', function() {
   console.log('Redis stored connected Connected!');
@@ -98,6 +96,7 @@ class App {
     this.app.use(cors());
   }
 }
+export { redisStore }
 
 export default App;
 
