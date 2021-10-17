@@ -16,8 +16,7 @@ if (result.error) {
 }
 
 export const redisStore = redis.createClient({
-  host: process.env.REDIS_URL ||  "redis",
-  port: 6379
+  host: process.env.REDIS_URL ||  "redis"
 })
 
 redisStore.on('connect', function() {
